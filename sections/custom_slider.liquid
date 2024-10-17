@@ -1,0 +1,196 @@
+<!-- slider.liquid -->
+<section class="slider-section">
+  <div class="slide_center">
+    {% for block in section.blocks %}
+      <div class="slider-item">
+        <div class="slider-content">
+          <h3>{{ block.settings.slider_heading }}</h3>
+          <p>{{ block.settings.slider_text }}</p>
+        </div>
+        <img src="{{ block.settings.slider_image | img_url: 'large' }}" alt="{{ block.settings.image_alt }}">
+        <button>Know More</button>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+  div#shopify-section-template--18596821565655__custom_slider_GHTDYN {
+    height: 90vh;
+}
+  .slider-content h3 {
+    font-family: Poppins;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 54px;
+    text-align: center;
+        margin: 0px;
+}
+  .slider-content p {
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: center;
+        margin: 0;
+}
+  .slider-section {
+    padding: 20px;
+  }
+
+  .slide_center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .slider-item {
+    text-align: center;
+    transition: transform 0.5s ease, filter 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .slider-item.slick-center {
+    transform: scale(1.1); /* Zoom-out effect for the center item */
+    filter: blur(0px); /* No blur for center item */
+  }
+
+  .slider-item:not(.slick-center) {
+    filter: blur(5px); /* Blur effect for side items */
+    transform: scale(0.6); /* Smaller size for side items */
+  }
+
+  .slider-item img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+
+  .slider-content {
+    margin-bottom: 10px; /* Space between text and image */
+    color: black;
+    text-align: center;
+  }
+
+  .slider-item button {
+    padding: 10px 20px;
+    background-color: #00aaff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    display: none; /* Hide button for non-centered items */
+  }
+
+  .slick-center button {
+    display: block; /* Show button only for centered item */
+  }
+
+  .slick-prev, .slick-next {
+    color: black;
+    font-size: 24px;
+  }
+.slick-initialized .slick-slide {
+    display: flex!important;
+}
+  .slick-track{
+        height: 90vh;
+    padding-top: 45px;
+  }
+
+</style>
+
+
+<!-- Include the Slick CSS -->
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+
+<!-- Slick Slider initialization script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+<script>
+  $(document).ready(function(){
+    $('.slide_center').slick({
+      centerMode: true,
+      centerPadding: '60px',
+      slidesToShow: 3,
+      infinite: true,
+      autoplay: true, // Enable autoplay for smooth transitions
+      autoplaySpeed: 3000, // Set transition speed
+      speed: 800, // Animation speed
+      cssEase: 'ease-in-out', // Custom easing for smooth transition
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            arrows: false,
+            centerMode: true,
+            centerPadding: '40px',
+            slidesToShow: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            arrows: false,
+            centerMode: true,
+            centerPadding: '20px',
+            slidesToShow: 1
+          }
+        }
+      ]
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Custom Slick Slider",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "slider_image",
+          "label": "Slide Image"
+        },
+        {
+          "type": "text",
+          "id": "slider_heading",
+          "label": "Slide Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "slider_text",
+          "label": "Slide Text"
+        },
+        {
+          "type": "text",
+          "id": "button_text", /* Add this line */
+          "label": "Button Text" /* Add this line */
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image Alt Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Slider",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
